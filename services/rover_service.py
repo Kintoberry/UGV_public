@@ -33,9 +33,9 @@ class RoverService(rpyc.Service):
             return {"status_code": 500, "message": str(e)}  # Internal Server Error
         
     def exposed_conduct_mission(self):
-        if not self.rover_instance.ready_for_mission():
-            print("why is it here?")
-            return {"status_code": 400, "message": "You need to connect to the rover, downalod the mission, and initiate the rover."}
+        # if not self.rover_instance.ready_for_mission():
+        #     print("why is it here?")
+        #     return {"status_code": 400, "message": "You need to connect to the rover, downalod the mission, and initiate the rover."}
         if not self.rover_instance.set_auto_mode():
             return {"status_code": 400, "message": "Failed to set AUTO mode."}
         if not self.rover_instance.arm_rover():

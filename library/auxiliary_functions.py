@@ -21,15 +21,12 @@ def connect_flight_controller(connection_string, baud_rate, debug=False):
         return mavutil.mavlink_connection(connection_string, baud=baud_rate)
     except Exception as e:
             print("e: ", e)
-            print("e.args: ", e.args)
-            print("e__context__: ", e.__context__)
             return None 
 
         
 def find_port_name(debug=False) -> tuple[str, int]:
     # NOTE: it seems `vid` and `pid` and etc might changes depending on which OS you run this code. 
     # It might be due to firmware-level discrepancies. 
-
     telemetry_radio_identity = None
     pixhawk4_identity = None
     if sys.platform == "linux":

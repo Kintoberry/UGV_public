@@ -24,6 +24,6 @@ def conduct_mission():
 if __name__ == "__main__":
     connect()
     initiate()
-    # conduct_mission()
+    conduct_mission()
     # initiate()
     # conduct_mission()

@@ -34,11 +34,3 @@ class MessageDistributor():
         self.sync_mav_cmd.append(mav_cmd)
         
 
-# target_path = get_messages_folder_path(generate_message_filename())
-#         with open(target_path, 'w') as fp:
-#             json.dump(messages, fp, indent=2)    
-#             fp.flush()    
-#             pass
-
-# def get_messages_folder_path(message_file_name: str) -> str:
-#     return os.path.join(os.path.dirname(os.path.abspath(__file__)), "captured_messages", "mission_records",message_file_name)

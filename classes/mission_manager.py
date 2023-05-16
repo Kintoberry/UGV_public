@@ -19,19 +19,10 @@ class MissionManager:
         self.loitering = False
         self.loiter_time = None
 
-    # TODO: need to reset mission status after finished the mission, and when it's ready to repeat the mission
-    # Maybe throttle disarm should signal this state change
-    # def reset_mission_status(self):
-        # pass
-
     # Setter Injection 
     def set_rover_serial(self, rover_serial, force=False):
         with self.thread_lock:
             self.rover_serial = rover_serial
-        # if not self.rover_serial or force:
-        #     self.rover_serial = rover_serial
-        # else:
-        #     raise ExistingSerialConnectionException("Serial connection to the UGV already exists. Use `force` parameter if you must.")
 
     def load_mission(self):
         with self.thread_lock:
@@ -64,11 +55,8 @@ class MissionManager:
                 elif self.mission_blueprint.is_loiter_unlimited_cmd(message.seq):
                     self.loitering = False 
                     self.loiter_time = None
-            # TODO: Need to find out if we need to parse STATUSTEXT
-            # elif message_type == "STATUSTEXT":
                 
     def move_to_next_waypoint(self) -> bool:
-        # move to the next waypoint regardless of what it's doing now
         with self.thread_lock:
             if self.mission_blueprint.is_mission_complete(self.current_waypoint):
                 raise MissionCompleteException("Cannot move to the next waypoint. Mission already complete.")
@@ -95,7 +83,6 @@ class MissionManager:
         
 
     def move_to_next_mission_item(self):
-        # move to the next mission item regardless of what it's doing now
         with self.thread_lock:
             if self.mission_blueprint.is_mission_complete(self.current_waypoint):
                 raise MissionCompleteException("Cannot move to the next waypoint. Mission already complete.")
@@ -118,23 +105,3 @@ class MissionManager:
             else:
                 raise SyncCommandFailedException("Couldn't send sync command MAV_CMD_DO_SET_MISSION_CURRENT")
             
-    # def report_mission_status(self) -> dict:
-    #     mission_status = {
-    #         "current_waypoint": self.current_waypoint,
-    #         "current_mission_item": self.current_mission_item,
-    #         "target_waypoint": self.target_waypoint,
-    #     }
-
-
-
-    #     self.rover_serial = None
-    #     self.queue_manager = queue_manager
-    #     self.mission_blueprint = mission_blueprint
-    #     self.thread_lock = threading.Lock()
-    #     self.target_waypoint = None
-    #     self.current_waypoint = None
-    #     self.current_mission_item = None
-    #     self.final_waypoint = None
-    #     self.mission_complete = False
-    #     self.loitering = False
-    #     self.loiter_time = None

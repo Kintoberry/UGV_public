@@ -37,9 +37,9 @@ class Rover:
         with self.thread_lock:
             if reinitiate and self.rover_initiated:
                 self._cleanup_resources()
-            self._initiate_threads()
-            print("hwy not here?")
             self.mission_manager.load_mission()
+            print("hwy not here?")
+            self._initiate_threads()
             print("mission loaded")
             self.rover_initiated = True
         return True
@@ -108,7 +108,7 @@ class Rover:
                 0, # Reserved
                 0  # Reserved
             )
-            self.queue_manager.put("sync_cmd", block=True)
+            self.queue_manager.put("sync_cmd", mav_cmd, block=True)
             success = self.queue_manager.get("sync_cmd_result")
             if success:
                 self.rover_mode = "AUTO"
@@ -123,22 +123,6 @@ class Rover:
             else:
                 print(f"rover_serial: {self.rover_serial}, threads_initiated: {self.threads_initiated}, mission_manager: {self.mission_manager.is_mission_downloaded()}")
                 return False
-    
-    # def _connect_to_rover(self) -> bool:
-    #     print("Initiating Rover..")
-
-    #     portname, baud_rate = aux.find_port_name()
-    #     if portname is None:
-    #         print("ERROR: Cannot find the port for the telemetry radio.")
-    #         return False
-        
-    #     rover_serial = helper.connect_flight_controller(portname, baud_rate)
-    #     if rover_serial is None:
-    #         print("ERROR: connect_flight_controller func returned None")
-    #         return False
-    #     self.rover_serial = rover_serial
-
-    #     return True
     
     def _initiate_threads(self):
         if self.threads_initiated:

@@ -62,7 +62,7 @@ def move_to_next_mission_item():
 def report_mission_status():
     try:
         rover_conn = app.config['rpc_conn']
-        response = rover_conn.root.move_to_next_mission_item()
+        response = rover_conn.root.report_mission_status()
         if response["status_code"] == 200:
             return jsonify({"message": response["message"]}, response["status_code"])
         else:
